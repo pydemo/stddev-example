@@ -49,8 +49,8 @@ echo "Done.
 ## Metrics.
 ### You can fetch row counts from:
 1.	CloudWatch logs (Write logs from your Python scripts into CloudWatch log group. Then use CW Logs Insights query language to create dashboard)
-2.	S3 file metadata (assumed you updated file metadata with row counts from your python script)
-3.	S3 bucket tags (assumed you created those bucket tags with row counts from your python script)
+2.	S3 file metadata (assumed you updated file metadata with row counts from your python script at data load time)
+3.	S3 bucket tags (assumed you created those bucket tags with row counts from your python script at data load time)
 4.	Brute–force recount all rows in a bucket FACT_UPDATED using Python.
 ### Job status:
 1.	CloudWatch logs (Write job leg status from your Python scripts into CloudWatch log group. Then use CW Logs Insights query language to create dashboard)
