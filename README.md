@@ -81,7 +81,7 @@ VP_mean = VP_sum/VP_cnt
 ```SQL
 SELECT sum((S._4- VP_mean)* (S._4- VP_mean)) VP_mean_sum FROM s3object S where date> ‘06/01/2019’
 ```
-VP_std_dev = sqrt(VP_mean_of_squared/VP_count)
+VP_std_dev = sqrt(VP_mean_sum/VP_count)
 
 
 
