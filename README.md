@@ -1,6 +1,3 @@
-# stddev-example
-Standard deviation calculation example for impressions fact and campaigns slowly changing  dimension using Python
-
 ### Prereqs:
 1.	We will need valid job queue and compute environment for AWS Batch.
 2.	Also we need working Docker environment to complete this task (Amazon Linux +Docker).
