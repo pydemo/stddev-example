@@ -25,7 +25,7 @@ The impression data must be joined with campaign metadata located in a separate 
 3.	Update FACT_JOINED file (from step 2) with data from changed campaign dimension. Upload results to S3 as FACT_UPDATED.
 
 ### Run_job.sh
-
+```shell
 #!/bin/bash
 date
 echo "Args: $@"
@@ -43,6 +43,7 @@ python3 update.py bucket_name/updated_campaign_meta_file.gz tables/ CT_JOINED ta
 
 date
 echo "Done.
+```
 
 ### Python scripts:
 partition.py – partitions impressions files by date (list) and campaign_id (hash) 
@@ -60,19 +61,26 @@ update.py – updates impressions partitioned files with data from updated metad
 
 ### Standard deviation of the column “viewing_percentage” over the past 200 days.
 1.	FACT_UPDATED
- [‘01/01/2019’, '50000', 'campaign_00', 'video_0', '0.5']
-[‘02/02/2020’, '50018', 'campaign_08', 'video_0', '0.33']
-[‘03/03/2020’, '50020', 'campaign_00', 'video_0', '0.25']
-[‘04/04/2019’, '50030', 'campaign_00', 'video_0', '0.2']
+
+   [‘01/01/2019’, '50000', 'campaign_00', 'video_0', '0.5']
+   [‘02/02/2020’, '50018', 'campaign_08', 'video_0', '0.33']
+   [‘03/03/2020’, '50020', 'campaign_00', 'video_0', '0.25']
+   [‘04/04/2019’, '50030', 'campaign_00', 'video_0', '0.2']
+   
 Last column is viewing_percentage = VP
 
 ### Calculate standard deviation (using S3 Select)
-1.	Mean (run S3 Select query on FACT_UPDATED to calculate sum of all values in VP, then calculate number of all rows. Mean = sum_of_val_VP/total_row_count
+   Mean (run S3 Select query on FACT_UPDATED to calculate sum of all values in VP, then calculate number of all rows. Mean = sum_of_val_VP/total_row_count
+```SQL
 SELECT sum(S._4) VP_sum FROM s3object S where date> ‘06/01/2019’
 SELECT count(*) VP_cnt FROM s3object S where date> ‘06/01/2019’
+```
 VP_mean = VP_sum/VP_cnt
-1.	Now calculate std deviation.. (Run S3 Select query to do it)
+
+   Now calculate std deviation.. (Run S3 Select query to do it)
+```SQL
 SELECT sum((S._4- VP_mean)* (S._4- VP_mean)) VP_mean_sum FROM s3object S where date> ‘06/01/2019’
+```
 VP_std_dev = sqrt(VP_mean_of_squared/VP_count)
 
 
