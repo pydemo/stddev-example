@@ -1,2 +1,79 @@
 # stddev-example
 Standard deviation calculation example for impressions fact and campaigns slowly changing  dimension using Python
+
+## Scenario: 
+Every day an external vendor SFTPs Ad Impression Data files to a private S3 bucket. Each file is comma delimited and compressed using the GZIP compression algorithm. The files sizes usually range between 3GB and 12GB and contain data for the previous day. 
+The impression data must be joined with campaign metadata located in a separate S3 file, and then outputted to an S3 data lake table that is partitioned by the Ad Date. The two data sets are joined based on the “campaign_id” fields in both data sets. The data lake must always have the most up-to-date version of the data. 
+## Answer:
+### Prereqs:
+1.	We will need valid job queue and compute environment for AWS Batch.
+2.	Also we need working Docker environment to complete this task (Amazon Linux +Docker).
+3.	AWS CLI
+### Build steps:
+1.	Build Docker images for partition, join, and update processes.
+2.	Create an Amazon ECR or Docker Hub repo for the images.
+3.	Push the built image to ECR or DH.
+4.	Create job script and upload it to S3.
+5.	Create IAM role to be used by jobs to access S3.
+6.	Create a job definition that uses the built images.
+7.	Submit and run a job that executes the job script from S3.
+
+## Workflow
+
+1.	Partition large impressions file by date (list partition) and campaign id (hash partition). Upload results to S3 as FACT_PARTITONED.
+2.	Join FACT_PARTITONED file (from step 1) with smaller campaign dimension file. Upload results to S3 as FACT_JOINED.
+3.	Update FACT_JOINED file (from step 2) with data from changed campaign dimension. Upload results to S3 as FACT_UPDATED.
+
+### Run_job.sh
+
+#!/bin/bash
+date
+echo "Args: $@"
+env
+echo "Partition Fact."
+echo "jobId: $AWS_BATCH_JOB_ID"
+echo "jobQueue: $AWS_BATCH_JQ_NAME"
+echo "computeEnvironment: $AWS_BATCH_CE_NAME"
+
+python3 partition.py bucket_name/fact_file.gz tables/FACT_PARTITIONED
+
+python3 join.py bucket_name/campaign_meta_file.gz tables/ FACT_PARTITIONED tables/FACT_JOINED
+
+python3 update.py bucket_name/updated_campaign_meta_file.gz tables/ CT_JOINED tables/FACT_UPDATED
+
+date
+echo "Done.
+
+### Python scripts:
+partition.py – partitions impressions files by date (list) and campaign_id (hash) 
+join.py – joins impressions partitioned file with campaign metadata file by date and campaign_id.
+update.py – updates impressions partitioned files with data from updated metadata file by date and campaign_id.
+
+## Metrics.
+### You can fetch row counts from:
+1.	CloudWatch logs (Write logs from your Python scripts into CloudWatch log group. Then use CW Logs Insights query language to create dashboard)
+2.	S3 file metadata tags (assumed you updated metadata with row counts from your python script)
+3.	S3 bucket tags (assumed you created those tags with row counts from your python script)
+4.	Brute–force recount all rows in a bucket FACT_UPDATED using Python.
+### Job status:
+1.	CloudWatch logs (Write job leg status from your Python scripts into CloudWatch log group. Then use CW Logs Insights query language to create dashboard)
+
+### Standard deviation of the column “viewing_percentage” over the past 200 days.
+1.	FACT_UPDATED
+ [‘01/01/2019’, '50000', 'campaign_00', 'video_0', '0.5']
+[‘02/02/2020’, '50018', 'campaign_08', 'video_0', '0.33']
+[‘03/03/2020’, '50020', 'campaign_00', 'video_0', '0.25']
+[‘04/04/2019’, '50030', 'campaign_00', 'video_0', '0.2']
+Last column is viewing_percentage = VP
+
+### Calculate standard deviation (using S3 Select)
+1.	Mean (run S3 Select query on FACT_UPDATED to calculate sum of all values in VP, then calculate number of all rows. Mean = sum_of_val_VP/total_row_count
+SELECT sum(S._4) VP_sum FROM s3object S where date> ‘06/01/2019’
+SELECT count(*) VP_cnt FROM s3object S where date> ‘06/01/2019’
+VP_mean = VP_sum/VP_cnt
+1.	Now calculate std deviation.. (Run S3 Select query to do it)
+SELECT sum((S._4- VP_mean)* (S._4- VP_mean)) VP_mean_sum FROM s3object S where date> ‘06/01/2019’
+VP_std_dev = sqrt(VP_mean_of_squared/VP_count)
+
+
+
