@@ -82,7 +82,7 @@ SELECT count(*) VP_cnt FROM s3object S where date> ‘06/01/2019’
 ```
 `VP_mean = VP_sum/VP_cnt`
 
-   Now calculate std deviation.. (Run S3 Select query to do it)
+   Now calculate std deviation.. (Run S3 Select query on FACT_UPDATED to do it)
 ```SQL
 SELECT sum((S._4- VP_mean)* (S._4- VP_mean)) VP_mean_sum FROM s3object S where date> ‘06/01/2019’
 ```
