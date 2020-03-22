@@ -2,8 +2,11 @@
 Standard deviation calculation example for impressions fact and campaigns slowly changing  dimension using Python
 
 ## Scenario: 
-Every day an external vendor SFTPs Ad Impression Data files to a private S3 bucket. Each file is comma delimited and compressed using the GZIP compression algorithm. The files sizes usually range between 3GB and 12GB and contain data for the previous day. 
-The impression data must be joined with campaign metadata located in a separate S3 file, and then outputted to an S3 data lake table that is partitioned by the Ad Date. The two data sets are joined based on the “campaign_id” fields in both data sets. The data lake must always have the most up-to-date version of the data. 
+      Impression Data files in a private S3 bucket. 
+      Each file is comma delimited and compressed using the GZIP compression algorithm. 
+      The files sizes usually range between 3GB and 12GB and contain data for the previous day. 
+      The impression data must be joined with campaign metadata located in a separate S3 file, and then outputted to an S3 data lake table that is partitioned by the Ad Date. 
+      The two data sets are joined based on the “campaign_id” fields in both data sets. 
 ## Answer:
 ### Prereqs:
 1.	We will need valid job queue and compute environment for AWS Batch.
