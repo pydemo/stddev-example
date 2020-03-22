@@ -43,6 +43,8 @@ echo "Done.
       join.py – joins impressions partitioned file with campaign metadata file by date and campaign_id.
       update.py – updates impressions partitioned files with data from updated metadata file by date and campaign_id.
       count.py - total line count across all files in S3 bucket. 
+      mean.py - viewing_percentage mean across all files in S3 bucket. 
+      stddev.py - standard deviation for viewing_percentage across all files in S3 bucket.
 
 ## Metrics.
 ### You can fetch row counts from:
