@@ -62,12 +62,12 @@ echo "Done.
 
 ### Standard deviation of the column “viewing_percentage” over the past 200 days.
 1.	FACT_UPDATED
-
+```
    [‘01/01/2019’, '50000', 'campaign_00', 'video_0', '0.5']
    [‘02/02/2020’, '50018', 'campaign_08', 'video_0', '0.33']
    [‘03/03/2020’, '50020', 'campaign_00', 'video_0', '0.25']
    [‘04/04/2019’, '50030', 'campaign_00', 'video_0', '0.2']
-   
+```   
 Last column is viewing_percentage = VP
 
 ### Calculate standard deviation (using S3 Select)
