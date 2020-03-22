@@ -76,4 +76,38 @@ SELECT sum((cast(S._4 as float)- VP_mean)* (cast(S._4 as float)- VP_mean)) VP_me
 `VP_std_dev = sqrt(VP_mean_sum/VP_count)`
 
 
+# Test
 
+      tables/FACT_IMPRESSIONS_UPDATED/B_0/FACT_IMPRESSIONS_UPDATED.B_0.campaign_00.updated_fact_from_dim.csv.gz
+      crossix-test
+      tables/FACT_IMPRESSIONS_UPDATED/
+      S3 key:  tables/FACT_IMPRESSIONS_UPDATED/B_0/FACT_IMPRESSIONS_UPDATED.B_0.campaign_00.updated_fact_from_dim.csv.gz
+      S3 key:  tables/FACT_IMPRESSIONS_UPDATED/B_1/FACT_IMPRESSIONS_UPDATED.B_1.campaign_00.updated_fact_from_dim.csv.gz
+      S3 key:  tables/FACT_IMPRESSIONS_UPDATED/B_2/FACT_IMPRESSIONS_UPDATED.B_2.campaign_00.updated_fact_from_dim.csv.gz
+      S3 key:  tables/FACT_IMPRESSIONS_UPDATED/B_3/FACT_IMPRESSIONS_UPDATED.B_3.campaign_00.updated_fact_from_dim.csv.gz
+      S3 key:  tables/FACT_IMPRESSIONS_UPDATED/B_4/FACT_IMPRESSIONS_UPDATED.B_4.campaign_00.updated_fact_from_dim.csv.gz
+      S3 key:  tables/FACT_IMPRESSIONS_UPDATED/B_5/FACT_IMPRESSIONS_UPDATED.B_5.campaign_00.updated_fact_from_dim.csv.gz
+      S3 key:  tables/FACT_IMPRESSIONS_UPDATED/B_6/FACT_IMPRESSIONS_UPDATED.B_6.campaign_00.updated_fact_from_dim.csv.gz
+      S3 key:  tables/FACT_IMPRESSIONS_UPDATED/B_7/FACT_IMPRESSIONS_UPDATED.B_7.campaign_00.updated_fact_from_dim.csv.gz
+      VP cnt, sum: ['2', '0.6\n']
+      VP cnt, sum: ['2', '0.4242424242424242\n']
+      VP cnt, sum: ['2', '0.3333333333333333\n']
+      VP cnt, sum: ['2', '0.27692307692307694\n']
+      VP cnt, sum: ['2', '0.23809523809523808\n']
+      VP cnt, sum: ['2', '0.2095238095238095\n']
+      VP cnt, sum: ['2', '0.1875\n']
+      VP cnt, sum: ['2', '0.16993464052287582\n']
+      Total rows: 16.0 , sum: 2.4395525226407577
+      Mean: 0.15247203266504736
+      Sum executed in 0.74 seconds.
+      VP cnt, square: ['2', '0.12352900229196570572376147394975029549\n']
+      VP cnt, square: ['2', '0.036500805877071419603623708664217207643\n']
+      VP cnt, square: ['2', '0.014291864157768743390423972286257298116\n']
+      VP cnt, square: ['2', '0.0079665523926945334146743244339381149809\n']
+      VP cnt, square: ['2', '0.0067695302436281042192323652445238045379\n']
+      VP cnt, square: ['2', '0.0074550069401342117967235206082362826225\n']
+      VP cnt, square: ['2', '0.0088496792406297783063180620859392\n']
+      VP cnt, square: ['2', '0.010480767993370960680744330116208007637\n']
+      Total rows: 16.0 , squares: 0.21584320913726343
+      Stddev: 0.11614732270301785
+      Stddev executed in 1.22 seconds.
