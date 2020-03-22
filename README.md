@@ -46,9 +46,9 @@ echo "Done.
 ```
 
 ### Python scripts:
-partition.py – partitions impressions files by date (list) and campaign_id (hash) 
-join.py – joins impressions partitioned file with campaign metadata file by date and campaign_id.
-update.py – updates impressions partitioned files with data from updated metadata file by date and campaign_id.
+      partition.py – partitions impressions files by date (list) and campaign_id (hash) 
+      join.py – joins impressions partitioned file with campaign metadata file by date and campaign_id.
+      update.py – updates impressions partitioned files with data from updated metadata file by date and campaign_id.
 
 ## Metrics.
 ### You can fetch row counts from:
