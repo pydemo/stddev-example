@@ -67,9 +67,10 @@ Last column is viewing_percentage = VP
 
 ### Calculate standard deviation (using S3 Select)
    Mean (run S3 Select query on FACT_UPDATED to calculate sum of all values in VP, then calculate number of all rows. 
+   
    `Mean = sum_of_val_VP/total_row_count`
 ```SQL
-SELECT avg(avg(cast(S._4 as float))) VP_mean FROM s3object S where date> ‘06/01/2019’
+SELECT avg(cast(S._4 as float)) VP_mean FROM s3object S where date> ‘06/01/2019’
 ```
    Now calculate std deviation.. (Run S3 Select query on FACT_UPDATED to do it)
 ```SQL
