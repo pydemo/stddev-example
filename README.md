@@ -32,7 +32,7 @@ python3 partition.py bucket_name/fact_file.gz tables/FACT_PARTITIONED
 
 python3 join.py bucket_name/campaign_meta_file.gz tables/ FACT_PARTITIONED tables/FACT_JOINED
 
-python3 update.py bucket_name/updated_campaign_meta_file.gz tables/ CT_JOINED tables/FACT_UPDATED
+python3 update.py bucket_name/updated_campaign_meta_file.gz tables/FACT_JOINED tables/FACT_UPDATED
 
 date
 echo "Done.
