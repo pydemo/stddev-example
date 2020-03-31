@@ -1,3 +1,14 @@
+# Scenario
+
+Impression Data files in a private S3 bucket. Each file is comma delimited and compressed using the GZIP. The files sizes usually range between 3GB and 12GB and contain data for the previous day.
+
+      The impressions data must be joined with campaign metadata joined based on the “campaign_id”, partitioned by AdDate.
+      Campaign metadata can change over time, and the existing impressions files must be updated data as campaign metadata is updated.
+      Create dashboard that displays the metrics listed below:
+      The status of each load
+      File counts per file
+      Standard deviation of the “viewing_percentage”
+
 ### Prereqs:
 1.	We will need valid job queue and compute environment for AWS Batch.
 2.	Also we need working Docker environment to complete this task (Amazon Linux +Docker).
