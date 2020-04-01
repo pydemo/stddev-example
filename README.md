@@ -1,6 +1,6 @@
 # Scenario
 
-Impression Data files in a private S3 bucket. Each file is comma delimited and compressed using the GZIP. The files sizes usually range between 3GB and 12GB and contain data for the previous day.
+Impression data files in a private S3 bucket. Each file is comma delimited and compressed using the GZIP. The files sizes usually range between 3GB and 12GB and contain data for the previous day.
 
       The impressions data must be joined with campaign metadata joined based on the “campaign_id”, partitioned by AdDate.
       Campaign metadata can change over time, and the existing impressions files must be updated data as campaign metadata is updated.
